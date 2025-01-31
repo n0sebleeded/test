@@ -1,0 +1,20 @@
+.table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 80px;
+    gap: 0;
+    font-family: Inter, serif;
+    height: calc(100% + 550px);
+}
+
+.table__header--item {
+    height: 44px;
+    background-color: #F6F4F4;
+}
+
+.table__header--item--text {
+    color: #514A4A;
+    padding-left: 24px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 600;
+}

@@ -1,0 +1,101 @@
+.header {
+    font-family: Inter, serif;
+    padding: 20px 25px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header__heading {
+    font-size: 32px;
+    line-height: 38.4px;
+    font-weight: 600;
+}
+
+.heading__counter {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    background-color: #A85757;
+    border-radius: 4px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+
+.heading__counter--text {
+    color: white;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 475;
+}
+
+.heading__searchbar {
+    padding: 0 10px;
+    height: 40px;
+}
+
+.heading__searchbar--input {
+    height: 40px;
+    box-sizing: border-box;
+    border: 1px solid #DFDDDD;
+    border-radius: 4px 0 0 4px;
+    text-decoration: none;
+    background-color: white;
+    background-image: url("../../assets/searchIcon.svg");
+    background-position: 12.7px 10px;
+    padding-left: 34px;
+    background-repeat: no-repeat;
+}
+
+.heading__searchbar--input::placeholder {
+    text-decoration: none;
+    color: #C5C0C0;
+    background-color: white;
+    line-height: normal;
+    background-repeat: no-repeat;
+}
+
+.heading__searchbar--input:focus {
+    outline: none;
+}
+
+.heading__searchbar--button {
+    background-color: #514A4A;
+    color: white;
+    font-weight: 475;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    line-height: 20px;
+    font-size: 14px;
+    border-radius: 0 4px 4px 0;
+    border: none;
+    height: 40px;
+}
+
+.heading__create-position {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #A85757;
+    padding: 8px 14px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.heading__create-position--text {
+    color: white;
+    font-weight: 475;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.05px;
+}

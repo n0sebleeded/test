@@ -1,0 +1,18 @@
+.table__item {
+    display: flex;
+    align-items: center;
+    height: 66px;
+    background-color: white;
+    border-bottom: 1px solid #F2EEEE;
+}
+
+.table__item:last-child {
+    margin-bottom: 90px;
+}
+
+.table__item--text {
+    font-size: 14px;
+    padding-left: 24px;
+    line-height: 20px;
+    font-weight: 400;
+}
