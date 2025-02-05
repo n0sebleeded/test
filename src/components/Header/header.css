@@ -77,6 +77,7 @@
     border-radius: 0 4px 4px 0;
     border: none;
     height: 40px;
+    cursor: pointer;
 }
 
 .heading__create-position {

@@ -11,10 +11,15 @@
     background-color: #F6F4F4;
 }
 
-.table__header--item--text {
+.table__header--item--text, .table__header--item--text-clickable {
     color: #514A4A;
     padding-left: 24px;
     font-size: 13px;
     line-height: 16px;
     font-weight: 600;
+}
+
+.table__header--item--text-clickable {
+    cursor: pointer;
+    width: fit-content;
 }

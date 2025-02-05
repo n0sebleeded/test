@@ -1,63 +1,76 @@
-import Header from "./components/Header/Header.tsx";
-import { useEffect, useRef, useState } from "react";
-import Table from "./components/Table/Table.tsx";
-import Pagination from "./components/Pagination/Pagination.tsx";
-import axios from "axios";
-import Modal from "./components/Modal/Modal.tsx";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
-export type item = {
-    id: string;
-    name: string;
-    description?: string;
-    measurement_unit?: string;
-    code?: string;
-};
+import Header from "@components/Header/Header.tsx";
+import Table from "@components/Table/Table.tsx";
+import Pagination from "@components/Pagination/Pagination.tsx";
+import Modal from "@components/Modal/Modal.tsx";
+
+import { getItems } from "@api/requests.ts";
+import { Item, SortOrder } from "@types";
 
 function App() {
-    const authToken = useRef<null | string>(null);
-
-    const [itemList, setItemList] = useState<item[]>();
+    const [itemList, setItemList] = useState<Item[]>();
     const [selectedPageSize, setSelectedPageSize] = useState<number>(5);
     const [selectedPage, setSelectedPage] = useState<number>(1);
+    const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.ASC);
     const [showModal, setShowModal] = useState(false);
-
-    const url = import.meta.env.VITE_BASE_URL;
-    const login = import.meta.env.VITE_AUTH_LOGIN;
-    const password = import.meta.env.VITE_AUTH_PASS;
+    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+    const [limit, setLimit] = useState<number>(1150);
+    const [itemName, setItemName] = useState("");
 
     useEffect(() => {
-        axios
-            .post(`${url}/auth/login`, { login: login, password: password })
-            .then((res) => {
-                authToken.current = res.data.access_token;
-                axios
-                    .get(
-                        `${url}/wh/items?page=${1500 / selectedPageSize + selectedPage}&pageSize=${selectedPageSize}`,
-                        {
-                            headers: {
-                                Authorization: authToken.current,
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        console.log(res.data.result);
-                        setItemList(res.data.result);
-                    });
-            });
-    }, [selectedPageSize, selectedPage]);
+        getItems({ selectedPage, selectedPageSize, sortOrder, itemName }).then(
+            (res) => {
+                setItemList(res.data.result);
+            }
+        );
+    }, [selectedPageSize, selectedPage, sortOrder, showModal]);
+
+    const handleEditItem = (item: Item) => {
+        setSelectedItem(item);
+        setShowModal(true);
+    };
+
+    const handleAddItem = () => {
+        setSelectedItem(null);
+        setShowModal(true);
+    };
 
     return (
-        <>
-            {showModal && <Modal setShowModal={setShowModal} />}
-            <Header setShowModal={setShowModal} />
-            <Table itemList={itemList} />
+        <React.Fragment>
+            <Header
+                selectedPage={selectedPage}
+                selectedPageSize={selectedPageSize}
+                itemName={itemName}
+                totalSize={limit}
+                setLimit={setLimit}
+                handleAddItem={handleAddItem}
+                setItemList={setItemList}
+                setItemName={setItemName}
+                setSelectedPage={setSelectedPage}
+            />
+            <Table
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+                onEditItem={handleEditItem}
+                itemList={itemList}
+            />
             <Pagination
                 setSelectedPageSize={setSelectedPageSize}
                 setSelectedPage={setSelectedPage}
                 selectedPage={selectedPage}
-                totalPages={1140 / selectedPageSize}
+                totalPages={limit / selectedPageSize}
             />
-        </>
+            <AnimatePresence mode="wait">
+                {showModal && (
+                    <Modal
+                        selectedItem={selectedItem}
+                        setShowModal={setShowModal}
+                    />
+                )}
+            </AnimatePresence>
+        </React.Fragment>
     );
 }
 

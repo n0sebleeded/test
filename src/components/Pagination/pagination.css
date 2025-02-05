@@ -28,6 +28,7 @@
     border-radius: 6px;
     border: 2px solid #A85757;
     box-sizing: border-box;
+    color: #A85757;
 }
 
 .pagination__page-box--item {
